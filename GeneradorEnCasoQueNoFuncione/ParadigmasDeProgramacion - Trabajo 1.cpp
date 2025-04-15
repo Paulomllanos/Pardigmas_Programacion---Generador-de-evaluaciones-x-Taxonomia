@@ -1,6 +1,7 @@
 // Tarea 1 Grupo10
 #include <iostream>
 #include <cstring>
+#include <cctype>
 
 using namespace std;
 
@@ -24,30 +25,123 @@ public:
         tiempo = 0;
     }
 
-    void crearPregunta(const char* nivelTaxonomia) {
+    void crearPregunta(char* nivelTaxonomia) {
         cout << "Seleccione el tipo de pregunta:\n";
-        cout << "a) Composicion y ensayo\n";
-        cout << "b) Respuesta corta\n";
-        cout << "c) Texto incompleto\n";
-        cout << "d) Correspondencia\n";
-        cout << "e) Opcion multiple\n";
-        cout << "f) Verdadero/Falso\n";
-        cout << "g) Analogias/Diferencias\n";
-        cout << "h) Graficos/Mapas\n";
-        cout << "Seleccione una opcion (a-h): ";
         char op;
-        cin >> op;
-        cin.ignore();
-        switch (op) {
-            case 'a': strcpy(tipo, "Composicion y ensayo"); break;
-            case 'b': strcpy(tipo, "Respuesta corta"); break;
-            case 'c': strcpy(tipo, "Texto incompleto"); break;
-            case 'd': strcpy(tipo, "Correspondencia"); break;
-            case 'e': strcpy(tipo, "Opcion multiple"); break;
-            case 'f': strcpy(tipo, "Verdadero/Falso"); break;
-            case 'g': strcpy(tipo, "Analogias/Diferencias"); break;
-            case 'h': strcpy(tipo, "Graficos/Mapas"); break;
-            default: strcpy(tipo, "Desconocido"); break;
+        strcpy(tipo, "Desconocido"); //Incializar valor por defecto
+        bool opcionValida = false;
+        switch (atoi(nivelTaxonomia)) {
+            case 1: 
+                do {
+                    cout << "a) Respuesta corta\n";
+                    cout << "b) Correspondencia\n";
+                    cout << "Seleccione una opcion: ";
+                    cin >> op;
+                    cin.ignore();
+                    op = tolower(op);
+    
+                    if (op == 'a') {
+                        strcpy(tipo, "Respuesta corta");
+                        opcionValida = true;
+                    } else if (op == 'b') {
+                        strcpy(tipo, "Correspondencia");
+                        opcionValida = true;
+                    } else {
+                        cout << "Opción inválida. Intente nuevamente.\n";
+                    }
+                } while (!opcionValida);
+                break;
+            case 2:
+                do {
+                    cout << "a) Texto incompleto\n";
+                    cout << "Seleccione una opcion: ";
+                    cin >> op;
+                    cin.ignore();
+                    op = tolower(op);
+    
+                    if (op == 'a') {
+                        strcpy(tipo, "Texto incompleto");
+                        opcionValida = true;
+                    } else {
+                        cout << "Opción inválida. Intente nuevamente.\n";
+                    }
+                } while (!opcionValida);
+                break;
+            case 3:
+                do {
+                    cout << "a) Opcion multiple\n";
+                    cout << "Seleccione una opcion: ";
+                    cin >> op;
+                    cin.ignore();
+                    op = tolower(op);
+    
+                    if (op == 'a') {
+                        strcpy(tipo, "Opcion multiple");
+                        opcionValida = true;
+                    } else {
+                        cout << "Opción inválida. Intente nuevamente.\n";
+                    }
+                } while (!opcionValida);
+                break;
+            case 4:
+                do {
+                    cout << "a) Analogias/Diferencias\n";
+                    cout << "b) Graficos/Mapas\n";
+                    cout << "Seleccione una opcion: ";
+                    cin >> op;
+                    cin.ignore();
+                    op = tolower(op);
+    
+                    if (op == 'a') {
+                        strcpy(tipo, "Analogias/Diferencias");
+                        opcionValida = true;
+                    } else if (op == 'b') {
+                        strcpy(tipo, "Graficos/Mapas");
+                        opcionValida = true;
+                    } else {
+                        cout << "Opción inválida. Intente nuevamente.\n";
+                    }
+                } while (!opcionValida);
+                break;
+            case 5:
+                do {
+                    cout << "a) Composicion y ensayo\n";
+                    cout << "b) Verdadero/Falso\n";
+                    cout << "Seleccione una opcion: ";
+                    cin >> op;
+                    cin.ignore();
+                    op = tolower(op);
+    
+                    if (op == 'a') {
+                        strcpy(tipo, "Composicion y ensayo");
+                        opcionValida = true;
+                    } else if (op == 'b') {
+                        strcpy(tipo, "Verdadero/Falso");
+                        opcionValida = true;
+                    } else {
+                        cout << "Opción inválida. Intente nuevamente.\n";
+                    }
+                } while (!opcionValida);
+                break;
+            case 6:
+                do {
+                    cout << "a) Graficos/Mapas\n";
+                    cout << "Seleccione una opcion: ";
+                    cin >> op;
+                    cin.ignore();
+                    op = tolower(op);
+    
+                    if (op == 'a') {
+                        strcpy(tipo, "Graficos/Mapas");
+                        opcionValida = true;
+                    } else {
+                        cout << "Opción inválida. Intente nuevamente.\n";
+                    }
+                } while (!opcionValida);
+                break;
+            default:
+                cout << "Nivel taxonómico inválido.\n";
+                return;
         }
 
         cout << "Ingrese el enunciado: ";
@@ -56,37 +150,44 @@ public:
         cout << "Ingrese el anio de la pregunta: ";
         cin >> anio;
         cin.ignore();
-//condicional para las ocpiones multiples y verdadero/falso
-    if (strcmp(tipo, "Opcion multiple") == 0) {
-        cout << "Ingrese las alternativas (por ejemplo: a) opción A, b) opción B...):\n";
-        char alternativas[200];
-        cin.getline(alternativas, 200);
+        //condicional para las ocpiones multiples y verdadero/falso
+        if (strcmp(tipo, "Opcion multiple") == 0) {
+            cout << "Ingrese las alternativas (por ejemplo: a) opción A, b) opción B...):\n";
+            char alternativas[200];
+            cin.getline(alternativas, 200);
+    
+            strcat(enunciado, "\nAlternativas: ");
+            strcat(enunciado, alternativas);
+    
+            cout << "Ingrese la respuesta correcta: ";
+            cin.getline(respuesta, 100);
+    
+        } else if (strcmp(tipo, "Verdadero/Falso") == 0) {
+            cout << "Ingrese la respuesta (V o F): ";
+            cin.getline(respuesta, 100);
+    
+            char justificacion[200];
+            cout << "Ingrese la justificación: ";
+            cin.getline(justificacion, 200);
+    
+            strcat(respuesta, " - Justificación: ");
+            strcat(respuesta, justificacion);
+    
+        } else {
+            cout << "Ingrese la respuesta: ";
+            cin.getline(respuesta, 100);
+        }
 
-        strcat(enunciado, "\nAlternativas: ");
-        strcat(enunciado, alternativas);
-
-        cout << "Ingrese la respuesta correcta: ";
-        cin.getline(respuesta, 100);
-
-    } else if (strcmp(tipo, "Verdadero/Falso") == 0) {
-        cout << "Ingrese la respuesta (V o F): ";
-        cin.getline(respuesta, 100);
-
-        char justificacion[200];
-        cout << "Ingrese la justificación: ";
-        cin.getline(justificacion, 200);
-
-        strcat(respuesta, " - Justificación: ");
-        strcat(respuesta, justificacion);
-
-    } else {
-        cout << "Ingrese la respuesta: ";
-        cin.getline(respuesta, 100);
-    }
-
-        cout << "Ingrese el tiempo estimado en minutos: ";
-        cin >> tiempo;
-        cin.ignore();
+        // Asignación automática del tiempo según nivel taxonómico
+        switch (atoi(nivelTaxonomia)) {
+            case 1: tiempo = 1; break;                 // Recordar: 0.5 a 1 min
+            case 2: tiempo = 2; break;                 // Comprender: 1 a 2 min
+            case 3: tiempo = 3; break;                 // Aplicar: 2 a 3 min
+            case 4: tiempo = 4; break;                 // Analizar: 3 a 4 min
+            case 5: tiempo = 5; break;                 // Evaluar: 4 a 5 min
+            case 6: tiempo = 8; break;                 // Crear: 6 a 10 min (promedio 8)
+            default: tiempo = 1; break;                // Valor por defecto
+        }
     }
 
     void mostrar() {
@@ -119,7 +220,7 @@ public:
             cout << "Se ha alcanzado el limite total de preguntas.\n";
             return;
         }
-//Validación extra que puede ser eliminada
+
         if (totalPreguntas >= MAX_PREGUNTAS) {
             cout << "Se ha alcanzado el limite de preguntas por item.\n";
             return;
